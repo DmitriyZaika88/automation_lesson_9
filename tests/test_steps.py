@@ -3,9 +3,10 @@ from selene.support import by
 from selene.support.conditions import be
 from selene.support.shared import browser
 from selene.support.shared.jquery_style import s
-
+from allure_commons.types import Severity, AttachmentType
 
 # Подход 1. Более емкий и наглядный подход
+
 
 def test_dynamic_steps():
     with allure.step("Открываем главную страницу"):
@@ -29,6 +30,12 @@ def test_dynamic_steps():
 
 # Подход 2. Удобен при переисользовании кода, когда стэпы ставятся общими
 
+@allure.tag("web")
+@allure.severity(Severity.NORMAL)
+@allure.label("owner", "Zaika")
+@allure.feature("Step model testing")
+@allure.story("Allure feature testing")
+@allure.link("https://github.com", name="Testing")
 def test_decorator_steps():
     open_main_page()
     search_for_repository("eroshenkoam/allure-example")
@@ -41,6 +48,7 @@ def test_decorator_steps():
 def open_main_page():
     browser.open("https://github.com")
     browser.driver.maximize_window()
+
 
 @allure.step("Ищем репозитория {repo}")
 def search_for_repository(repo):
@@ -62,3 +70,7 @@ def open_issue_tab():
 @allure.step("Проверяем наличие Issue с номером {number}")
 def should_see_issue_with_number(number):
     s(by.partial_text(number)).click()
+    # Добавление аттачмента со скрином
+    allure.attach(browser.driver().get_screenshot_as_png(),
+                  name="Screen for test_decorator_steps.py",
+                  attachment_type=AttachmentType.PNG)

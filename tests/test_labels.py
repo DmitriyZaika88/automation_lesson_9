@@ -17,7 +17,7 @@ def test_dynamic_labels():
 
 @allure.tag("web")
 @allure.severity(Severity.CRITICAL)
-@allure.label("owner", "eroshenkoam")
+@allure.label("owner", "Zaika")
 @allure.feature("Задачи в репозитории")
 @allure.story("Авторизованный пользователь может создать задачу в репозитории")
 @allure.link("https://github.com", name="Testing")
